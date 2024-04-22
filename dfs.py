@@ -8,7 +8,6 @@ def dfs(visited, graph, node, path=[]):  # Function for DFS
         if neighbour not in visited:
             dfs(visited, graph, neighbour, path)
 
-
     path.pop()
 
 graph = {}
@@ -19,7 +18,9 @@ while True:
     neighbours = input("Enter its neighbours separated by spaces: ").split()
     graph[node] = neighbours
 
+print("The graph in dictionary form:")
+print(graph)
+
 start_node = input("Enter the start node: ")
 print("Following is the DFS:")
 dfs(set(), graph, start_node)
-            
