@@ -53,4 +53,5 @@ if path:
     print("Total cost:", total_cost)
 else:
     print("Goal not reachable")
- 
+print ("graph in dictionary form")
+print(graph)
