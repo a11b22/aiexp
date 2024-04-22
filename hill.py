@@ -53,3 +53,5 @@ if max_numeric_node is not None:
     print("Maximum numeric value found using hill climbing:", max_numeric_node)
 else:
     print("No numeric nodes found in the graph.")
+print("graph in dict form")
+print(graph)
