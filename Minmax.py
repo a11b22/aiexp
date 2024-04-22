@@ -1,23 +1,48 @@
 import math
 
-def minimax(curDepth, nodeIndex, maxTurn, scores, targetDepth):
+def minimax(curDepth, nodeIndex, maxTurn, scores, targetDepth, graph):
     if curDepth == targetDepth:
         return scores[nodeIndex]
 
     if maxTurn:
-        return max(minimax(curDepth + 1, nodeIndex * 2, False, scores, targetDepth),
-                   minimax(curDepth + 1, nodeIndex * 2 + 1, False, scores, targetDepth))
+        left_child_index = nodeIndex * 2
+        right_child_index = nodeIndex * 2 + 1
+        graph[str(scores[nodeIndex])] = [str(scores[left_child_index]), str(scores[right_child_index])]
+        return max(minimax(curDepth + 1, left_child_index, False, scores, targetDepth, graph),
+                   minimax(curDepth + 1, right_child_index, False, scores, targetDepth, graph))
     else:
-        return min(minimax(curDepth + 1, nodeIndex * 2, True, scores, targetDepth),
-                   minimax(curDepth + 1, nodeIndex * 2 + 1, True, scores, targetDepth))
+        left_child_index = nodeIndex * 2
+        right_child_index = nodeIndex * 2 + 1
+        graph[str(scores[nodeIndex])] = [str(scores[left_child_index]), str(scores[right_child_index])]
+        return min(minimax(curDepth + 1, left_child_index, True, scores, targetDepth, graph),
+                   minimax(curDepth + 1, right_child_index, True, scores, targetDepth, graph))
+
+# Function to construct graph
+def construct_graph(curDepth, nodeIndex, maxTurn, scores, targetDepth, graph):
+    if curDepth == targetDepth:
+        return
+
+    if maxTurn:
+        left_child_index = nodeIndex * 2
+        right_child_index = nodeIndex * 2 + 1
+        graph[str(scores[nodeIndex])] = [str(scores[left_child_index]), str(scores[right_child_index])]
+        construct_graph(curDepth + 1, left_child_index, False, scores, targetDepth, graph)
+        construct_graph(curDepth + 1, right_child_index, False, scores, targetDepth, graph)
+    else:
+        left_child_index = nodeIndex * 2
+        right_child_index = nodeIndex * 2 + 1
+        graph[str(scores[nodeIndex])] = [str(scores[left_child_index]), str(scores[right_child_index])]
+        construct_graph(curDepth + 1, left_child_index, True, scores, targetDepth, graph)
+        construct_graph(curDepth + 1, right_child_index, True, scores, targetDepth, graph)
 
 # Driver code
-scores = []
-
-num_scores = int(input("Enter the number of scores: "))
-for i in range(num_scores):
-    score = int(input("Enter score {}: ".format(i + 1)))
-    scores.append(score)
-
+scores = [3, 5, 2, 9, 12, 5, 23, 23]
 treeDepth = math.log(len(scores), 2)
-print("The optimal value is:", minimax(0, 0, True, scores, treeDepth))
+
+graph = {}
+optimal_solution = minimax(0, 0, True, scores, treeDepth, graph)
+
+print("Optimal solution:", optimal_solution)
+print("Graph:")
+print(graph)
+        
