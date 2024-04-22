@@ -29,6 +29,9 @@ while True:
     neighbours = input("Enter its neighbours separated by spaces: ").split()
     graph[node] = neighbours
 
+print("The graph in dictionary form:")
+print(graph)
+
 # Driver Code
 start_node = input("Enter the starting node: ")
 print("Following is the Breadth-First Search:")
