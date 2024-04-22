@@ -1,19 +1,25 @@
 visited = []
-queue = []     
+queue = []
 
-def bfs(visited, graph, node): 
+def bfs(visited, graph, node):
     visited.append(node)
     queue.append(node)
 
-    while queue:          
-        m = queue.pop(0) 
-        print (m, end = " ") 
+    while queue:
+        current_node = queue.pop(0)
+        print("Visited nodes:", visited)
+        print("Queue:", queue)
+        print("Current node:", current_node)
 
-        for neighbour in graph[m]:
-            if neighbour not in visited:
-                visited.append(neighbour)
-                queue.append(neighbour)
+        if current_node in graph:
+            for neighbour in graph[current_node]:
+                if neighbour not in visited and neighbour not in queue:
+                    visited.append(neighbour)
+                    queue.append(neighbour)
 
+        print("-----")
+
+        print(current_node, end=" ")
 
 graph = {}
 while True:
