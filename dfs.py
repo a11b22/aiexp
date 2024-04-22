@@ -1,11 +1,16 @@
-visited = set() # Set to keep track of visited nodes of graph.
+def dfs(visited, graph, node, path=[]):  # Function for DFS
+    print("Visiting node:", node)
+    visited.add(node)
+    path.append(node)
+    print("Visited nodes:", path)
 
-def dfs(visited, graph, node):  #function for dfs 
-    if node not in visited:
-        print (node)
-        visited.add(node)
-        for neighbour in graph[node]:
-            dfs(visited, graph, neighbour)
+    for neighbour in graph.get(node, []):
+        if neighbour not in visited:
+            dfs(visited, graph, neighbour, path)
+
+
+    path.pop()
+
 graph = {}
 while True:
     node = input("Enter a node (or 'done' to finish): ")
@@ -14,6 +19,7 @@ while True:
     neighbours = input("Enter its neighbours separated by spaces: ").split()
     graph[node] = neighbours
 
-start_node=input("enter the start node:")
-print("following is the dfs:")
-dfs(visited,graph,start_node)
+start_node = input("Enter the start node: ")
+print("Following is the DFS:")
+dfs(set(), graph, start_node)
+            
